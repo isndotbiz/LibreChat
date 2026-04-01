@@ -10,11 +10,17 @@ HYDRA Enterprise is a LibreChat-based LLM security evaluation platform with HYDR
 - `Edge` -> Nginx reverse proxy with SSE-safe streaming config
 - `Optional Services` -> HYDRA Dashboard, Telegram bot
 
-## Quick Start (3 commands)
+## Quick Start (1Password + Docker)
 ```bash
-cp .env.example .env
+cp env.op.example .env.op
+./scripts/render-env-from-op.sh
 docker compose -f docker-compose.hydra.yml up -d --build
 curl -sf http://localhost/health
+```
+
+## Hetzner Deploy
+```bash
+./scripts/deploy-hetzner.sh 46.224.100.66 root /root/Workspace/librechat-hydra hydra-enterprise
 ```
 
 ## Features
