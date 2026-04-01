@@ -29,6 +29,10 @@ const {
   // Structured Tools
   DALLE3,
   FluxAPI,
+  HydraStatus,
+  HydraIPScore,
+  HydraEvaluate,
+  HydraTechniques,
   OpenWeather,
   StructuredSD,
   StructuredACS,
@@ -174,6 +178,10 @@ const loadTools = async ({
 }) => {
   const toolConstructors = {
     flux: FluxAPI,
+    hydra_status: HydraStatus,
+    hydra_ip_score: HydraIPScore,
+    hydra_evaluate: HydraEvaluate,
+    hydra_techniques: HydraTechniques,
     calculator: Calculator,
     google: GoogleSearchAPI,
     open_weather: OpenWeather,

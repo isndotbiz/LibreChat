@@ -64,7 +64,7 @@ function AuthLayout({
           <img
             src="assets/logo.svg"
             className="h-full w-full object-contain"
-            alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'LibreChat' })}
+            alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'HYDRA Enterprise' })}
           />
         </div>
       </BlinkAnimation>
@@ -82,6 +82,16 @@ function AuthLayout({
             >
               {header}
             </h1>
+          )}
+          {pathname.includes('login') && (
+            <div className="mb-4 text-center">
+              <p className="text-sm font-medium text-text-secondary dark:text-text-secondary">
+                LLM Security Evaluation Platform
+              </p>
+              <p className="mt-1 text-xs text-text-secondary dark:text-text-secondary">
+                1,107+ evaluations | 124 models | 110 techniques
+              </p>
+            </div>
           )}
           {children}
           {!pathname.includes('2fa') &&

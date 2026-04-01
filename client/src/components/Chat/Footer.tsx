@@ -27,9 +27,9 @@ function Footer({ className }: { className?: string }) {
   const mainContentParts = (
     typeof config?.customFooter === 'string'
       ? config.customFooter
-      : '[LibreChat ' +
+      : '[HYDRA Enterprise ' +
         Constants.VERSION +
-        '](https://librechat.ai) - ' +
+        '](https://hydra-enterprise.local) - ' +
         localize('com_ui_latest_footer')
   ).split('|');
 

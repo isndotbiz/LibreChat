@@ -46,7 +46,7 @@ const AgentMarketplace: React.FC<AgentMarketplaceProps> = ({ className = '' }) =
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Set page title
-  useDocumentTitle(`${localize('com_agents_marketplace')} | LibreChat`);
+  useDocumentTitle(`${localize('com_agents_marketplace')} | HYDRA Enterprise`);
 
   // Ensure endpoints config is loaded first (required for agent queries)
   useGetEndpointsQuery();

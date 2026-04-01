@@ -91,6 +91,34 @@
     "authConfig": []
   },
   {
+    "name": "HYDRA Evaluate",
+    "pluginKey": "hydra_evaluate",
+    "description": "Run HYDRA cascade evaluation on a prompt and return technique + quality metadata.",
+    "icon": "assets/openai.svg",
+    "authConfig": []
+  },
+  {
+    "name": "HYDRA IP Score",
+    "pluginKey": "hydra_ip_score",
+    "description": "Query model-level IP score, confidence, and top techniques from HYDRA stats.",
+    "icon": "assets/openai.svg",
+    "authConfig": []
+  },
+  {
+    "name": "HYDRA Techniques",
+    "pluginKey": "hydra_techniques",
+    "description": "List top HYDRA techniques by win rate with optional filters.",
+    "icon": "assets/openai.svg",
+    "authConfig": []
+  },
+  {
+    "name": "HYDRA Status",
+    "pluginKey": "hydra_status",
+    "description": "Return HYDRA datastore health and evaluation counters.",
+    "icon": "assets/openai.svg",
+    "authConfig": []
+  },
+  {
     "name": "Stable Diffusion",
     "pluginKey": "stable-diffusion",
     "description": "Generate photo-realistic images given any text input.",

@@ -1,0 +1,16 @@
+HYDRA Proprietary License
+
+Copyright (c) 2026 HYDRA Enterprise
+
+All rights reserved.
+
+The files and components introduced for HYDRA Enterprise integration, including
+but not limited to HYDRA tool bridges, proprietary orchestration logic, and
+deployment compositions specific to HYDRA, are proprietary and confidential.
+
+No permission is granted to copy, modify, distribute, sublicense, or sell this
+software or its documentation without prior written authorization from the
+copyright holder.
+
+This license does not modify or replace upstream open-source licenses covering
+third-party components included in this repository.

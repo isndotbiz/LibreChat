@@ -51,7 +51,7 @@
   --amber-800: #92400e;
   --amber-900: #78350f;
   --amber-950: #451a03;
-  --brand-purple: #ab68ff;
+  --brand-purple: #6B21A8;
   --gizmo-gray-500: #999;
   --gizmo-gray-600: #666;
   --gizmo-gray-950: #0f0f0f;
@@ -63,7 +63,7 @@
   --markdown-font-size: 1rem;
 }
 html {
-  --brand-purple: #ab68ff;
+  --brand-purple: #6B21A8;
   --presentation: var(--white);
   --text-primary: var(--gray-800);
   --text-secondary: var(--gray-600);
@@ -126,39 +126,39 @@ html {
   --switch-unchecked: 0 0% 58%;
 }
 .dark {
-  --brand-purple: #ab68ff;
+  --brand-purple: #6B21A8;
   --presentation: var(--gray-800);
-  --text-primary: var(--gray-100);
-  --text-secondary: var(--gray-300);
-  --text-secondary-alt: var(--gray-400);
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-secondary-alt: #94A3B8;
   --text-tertiary: var(--gray-500);
   --text-warning: var(--amber-500);
   --text-destructive: var(--red-600);
   --header-primary: var(--gray-700);
   --header-hover: var(--gray-600);
   --header-button-hover: var(--gray-700);
-  --surface-active: var(--gray-500);
-  --surface-active-alt: var(--gray-700);
-  --surface-hover: var(--gray-600);
-  --surface-hover-alt: var(--gray-600);
-  --surface-primary: var(--gray-900);
-  --surface-primary-alt: var(--gray-850);
-  --surface-primary-contrast: var(--gray-850);
-  --surface-secondary: var(--gray-800);
-  --surface-secondary-alt: var(--gray-800);
-  --surface-tertiary: var(--gray-700);
-  --surface-tertiary-alt: var(--gray-700);
-  --surface-dialog: var(--gray-850);
-  --surface-submit: var(--green-700);
-  --surface-submit-hover: var(--green-800);
+  --surface-active: #2E1065;
+  --surface-active-alt: #312E81;
+  --surface-hover: #1E1B4B;
+  --surface-hover-alt: #312E81;
+  --surface-primary: #0A0A1A;
+  --surface-primary-alt: #1A1A2E;
+  --surface-primary-contrast: #1A1A2E;
+  --surface-secondary: #1A1A2E;
+  --surface-secondary-alt: #1F2040;
+  --surface-tertiary: #25264D;
+  --surface-tertiary-alt: #25264D;
+  --surface-dialog: #1A1A2E;
+  --surface-submit: #6B21A8;
+  --surface-submit-hover: #581C87;
   --surface-destructive: var(--red-800);
   --surface-destructive-hover: var(--red-900);
-  --surface-chat: var(--gray-700);
-  --border-light: var(--gray-700);
-  --border-medium-alt: var(--gray-600);
-  --border-medium: var(--gray-600);
-  --border-heavy: var(--gray-500);
-  --border-xheavy: var(--gray-400);
+  --surface-chat: #1A1A2E;
+  --border-light: #312E81;
+  --border-medium-alt: #4338CA;
+  --border-medium: #4338CA;
+  --border-heavy: #6B21A8;
+  --border-xheavy: #06B6D4;
   --border-destructive: var(--red-500);
   /* These are test styles */
 
@@ -222,6 +222,21 @@ html {
 .text-token-text-tertiary {
   color: #8e8ea0;
   color: var(--text-tertiary);
+}
+
+.hydra-chat-background {
+  background: linear-gradient(135deg, #0A0A1A 0%, #1A1A2E 50%, #0F0F23 100%);
+}
+
+.hydra-chat-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(107, 33, 168, 0.25), transparent 42%),
+    radial-gradient(circle at 80% 10%, rgba(6, 182, 212, 0.22), transparent 45%);
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 .icon-xs {

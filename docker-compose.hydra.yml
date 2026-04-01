@@ -1,0 +1,128 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+      - postgresql
+      - redis
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3080
+      - APP_TITLE=HYDRA Enterprise
+      - MONGO_URI=mongodb://mongodb:27017/LibreChat
+      - PG_DSN=postgresql://${PG_USER:-hydra}:${PG_PASSWORD}@postgresql:5432/${PG_DB:-research}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - REDIS_URI=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET}
+      - CREDS_KEY=${CREDS_KEY}
+      - CREDS_IV=${CREDS_IV}
+      - CONFIG_PATH=/app/librechat.yaml
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml:ro
+      - ./api/hydra:/app/hydra:ro
+      - uploads:/app/client/public/images
+    networks:
+      - hydra-net
+
+  mongodb:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - hydra-net
+
+  postgresql:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${PG_USER:-hydra}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB:-research}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER:-hydra}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hydra-net
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hydra-net
+
+  dashboard:
+    image: ghcr.io/isndotbiz/hydra-dashboard:latest
+    restart: unless-stopped
+    depends_on:
+      - postgresql
+    environment:
+      - PG_DSN=postgresql://${PG_USER:-hydra}:${PG_PASSWORD}@postgresql:5432/${PG_DB:-research}
+      - AUTH_SECRET_KEY=${DASHBOARD_AUTH_KEY}
+    ports:
+      - "8091:8091"
+    networks:
+      - hydra-net
+    profiles:
+      - dashboard
+
+  telegram-bot:
+    image: python:3.12-slim
+    restart: unless-stopped
+    depends_on:
+      - postgresql
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_ALLOWED_USERS=${TELEGRAM_ALLOWED_USERS}
+      - PG_DSN=postgresql://${PG_USER:-hydra}:${PG_PASSWORD}@postgresql:5432/${PG_DB:-research}
+    volumes:
+      - ./hydra-telegram/bot.py:/app/bot.py:ro
+    command: bash -c "pip install --quiet python-telegram-bot httpx psycopg2-binary && python /app/bot.py"
+    networks:
+      - hydra-net
+    profiles:
+      - telegram
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
+    depends_on:
+      - api
+    networks:
+      - hydra-net
+
+volumes:
+  mongo_data:
+  pg_data:
+  redis_data:
+  uploads:
+
+networks:
+  hydra-net:
+    driver: bridge
