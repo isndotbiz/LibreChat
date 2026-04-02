@@ -69,19 +69,19 @@ services:
       - hydra-net
 
   dashboard:
-    image: ghcr.io/isndotbiz/hydra-dashboard:latest
+    build:
+      context: ${HYDRA_SRC:-../llm-security-research}
+      dockerfile: ${PWD}/Dockerfile.dashboard
     restart: unless-stopped
     depends_on:
-      - hydra-pgvector
+      hydra-pgvector:
+        condition: service_healthy
     environment:
       - PG_DSN=${HYDRA_PG_DSN:-postgresql://${PG_USER:-hydra}:${PG_PASSWORD}@hydra-pgvector:5432/${PG_DB:-research}}
-      - AUTH_SECRET_KEY=${DASHBOARD_AUTH_KEY}
-    ports:
-      - "8091:8091"
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - PORT=8091
     networks:
       - hydra-net
-    profiles:
-      - dashboard
 
   telegram-bot:
     image: python:3.12-slim
@@ -112,6 +112,7 @@ services:
       - ./certbot/www:/var/www/certbot:ro
     depends_on:
       - api
+      - dashboard
     networks:
       - hydra-net
 
