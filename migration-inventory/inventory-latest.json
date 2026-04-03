@@ -1,0 +1,80 @@
+{
+  "generatedAt": "2026-04-02T03:44:30.975Z",
+  "counts": {
+    "accessroles": 12,
+    "agentcategories": 7,
+    "pluginauths": 0,
+    "balances": 0,
+    "conversationtags": 0,
+    "roles": 2,
+    "configs": 0,
+    "users": 0,
+    "agents": 0,
+    "transactions": 0,
+    "presets": 0,
+    "toolcalls": 0,
+    "sharedlinks": 0,
+    "sessions": 0,
+    "assistants": 0,
+    "agentapikeys": 0,
+    "promptgroups": 0,
+    "systemgrants": 18,
+    "conversations": 0,
+    "files": 0,
+    "projects": 0,
+    "aclentries": 0,
+    "mcpservers": 0,
+    "tokens": 0,
+    "keys": 0,
+    "actions": 0,
+    "groups": 0,
+    "prompts": 0,
+    "banners": 0,
+    "memoryentries": 0,
+    "messages": 0
+  },
+  "dbStats": {
+    "db": "LibreChat",
+    "collections": {
+      "high": 0,
+      "low": 31,
+      "unsigned": false
+    },
+    "views": {
+      "high": 0,
+      "low": 0,
+      "unsigned": false
+    },
+    "objects": {
+      "high": 0,
+      "low": 39,
+      "unsigned": false
+    },
+    "avgObjSize": 214.53846153846155,
+    "dataSize": 8367,
+    "storageSize": 225280,
+    "indexes": {
+      "high": 0,
+      "low": 173,
+      "unsigned": false
+    },
+    "indexSize": 1036288,
+    "totalSize": 1261568,
+    "scaleFactor": {
+      "high": 0,
+      "low": 1,
+      "unsigned": false
+    },
+    "fsUsedSize": 18299686912,
+    "fsTotalSize": 80321626112,
+    "ok": 1
+  },
+  "recentConversations": [],
+  "presets": [],
+  "prompts": [],
+  "assistants": [],
+  "agents": [],
+  "files": [],
+  "users": [],
+  "mcpservers": []
+}

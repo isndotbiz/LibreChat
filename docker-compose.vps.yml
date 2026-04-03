@@ -1,0 +1,22 @@
+# VPS (Hetzner) override — local pgvector, TLS via certbot, no RAG
+# Usage: docker compose -f docker-compose.hydra.yml -f docker-compose.vps.yml up -d
+
+services:
+  # Use local pgvector (default from base compose)
+  hydra-pgvector:
+    profiles: []  # ensure it's active (override any disabled profile)
+
+  # No RAG on VPS (no Ollama for embeddings)
+  rag-mcp:
+    profiles:
+      - disabled
+
+  # TLS certificate management
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done'"
+    profiles:
+      - https

@@ -19,7 +19,29 @@ fi
 TMP_FILE="$(mktemp)"
 trap 'rm -f "$TMP_FILE"' EXIT
 
+# Read the secure-note reference from the template before injection.
+SECRETS_REF="$(grep -E '^HYDRA_SECRETS_REF=' "$TEMPLATE_FILE" | sed -E 's/^HYDRA_SECRETS_REF=//')"
+
 op inject --force -i "$TEMPLATE_FILE" -o "$TMP_FILE"
+sed -i.bak -E '/^HYDRA_SECRETS_REF=/d' "$TMP_FILE" && rm -f "$TMP_FILE.bak"
+
+# Optional: hydrate additional key=value pairs from a secure note reference.
+# Expected format in template: HYDRA_SECRETS_REF=op://Vault/Item/notesPlain
+if [[ -n "${SECRETS_REF:-}" ]] && [[ "$SECRETS_REF" == op://* ]]; then
+  NOTE_CONTENT="$(op read "$SECRETS_REF" 2>/dev/null || true)"
+  if [[ -n "${NOTE_CONTENT:-}" ]]; then
+    while IFS= read -r line; do
+      line="${line//$'\r'/}"
+      line="${line#$'\ufeff'}"
+      line="$(printf '%s' "$line" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//')"
+      if [[ "$line" =~ ^[A-Z0-9_]+= ]]; then
+        key="${line%%=*}"
+        grep -q "^${key}=" "$TMP_FILE" && sed -i.bak -E "s|^${key}=.*$|${line}|" "$TMP_FILE" || echo "$line" >> "$TMP_FILE"
+      fi
+    done <<< "$NOTE_CONTENT"
+    rm -f "$TMP_FILE.bak"
+  fi
+fi
 
 if ! grep -q '^JWT_SECRET=' "$TMP_FILE"; then
   echo "JWT_SECRET=$(openssl rand -hex 32)" >> "$TMP_FILE"

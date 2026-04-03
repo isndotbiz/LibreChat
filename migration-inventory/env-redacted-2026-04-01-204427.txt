@@ -1,0 +1,19 @@
+DOMAIN_CLIENT=http://46.224.100.66
+DOMAIN_SERVER=http://46.224.100.66
+APP_TITLE=HYDRA Enterprise
+OPENROUTER_API_KEY=<redacted>
+OPENAI_API_KEY=<redacted>
+ELEVENLABS_API_KEY=<redacted>
+HF_TOKEN=<redacted>
+HYDRA_PG_DSN=<redacted>
+DASHBOARD_AUTH_KEY=<redacted>
+
+TELEGRAM_ALLOWED_USERS=485358589
+PG_USER=jdmal
+PG_PASSWORD=<redacted>
+PG_DB=research
+OWU_API_TOKEN=<redacted>
+TELEGRAM_BOT_TOKEN=<redacted>
+JWT_SECRET=<redacted>
+CREDS_KEY=<redacted>
+CREDS_IV=<redacted>
